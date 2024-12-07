@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'NatureNew';
+  showNav: boolean = true;
+  excludedRoutes: string[] = ['/login', '/signup']; // Add paths where you don't want nav
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Check if the current route is in the excluded list
+        this.showNav = !this.excludedRoutes.includes(event.urlAfterRedirects);
+      }
+    });
+  }
 }
