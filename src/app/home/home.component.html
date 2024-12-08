@@ -128,7 +128,7 @@
 </script>
 <!-- Show the toaster-style popup if the user is not authenticated or if it's time to remind again -->
  <div *ngIf="!isLoggedIn">
-  <app-popup *ngIf="!showPopup" (closePopup)="closePopup()" (remindLater)="remindLater()"></app-popup>
+  <app-popup *ngIf="showPopup" (closePopup)="closePopup()" (remindLater)="remindLater()"></app-popup>
 
  </div>
 
