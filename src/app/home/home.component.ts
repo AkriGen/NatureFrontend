@@ -4,6 +4,8 @@ import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
 import * as AOS from 'aos';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -16,16 +18,60 @@ export class HomeComponent implements OnInit {
 
   products: Product[] = [];
   bestSellers: Product[] = [];
-
+  showPopup: boolean = false;  // To control showing the popup
+  isAuthenticated: boolean= true;
+  isLoggedIn:boolean=false;
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private router:Router
-  ) {}
+    private router:Router,
+    private userService:UserService
+    // private jwtHelper: JwtHelperService,
+  ) {
+    this.checkRemindTime();  // Check if the popup should be displayed based on the remind time
 
+
+  }
+  // Check if the popup should be shown based on "Remind Me Later" time
+  checkRemindTime() {
+    // Skip popup if user is logged in
+    const user = this.userService.getUser();
+    if (user && user.isAuthenticated) {
+      this.showPopup = false;
+      return;  // Skip further logic if logged in
+    }
+
+    const remindTime = localStorage.getItem('remindTime');
+    if (remindTime) {
+      const currentTime = new Date().getTime();
+      if (currentTime >= parseInt(remindTime)) {
+        this.showPopup = true;  // Show the popup again after 1 minute
+      }
+    } else {
+      this.showPopup = true;  // Show popup immediately if it's the first time
+    }
+  }
+
+
+  // Close the popup when the user closes it
+  closePopup() {
+    this.showPopup = false;
+  }
+
+  // Handle the "Remind Me Later" event when the user clicks "Remind Me Later"
+  remindLater() {
+    this.showPopup = false;  // Close the popup after reminding the user
+    // Save the remind time in localStorage (e.g., 1 minute from now)
+    const remindTime = new Date().getTime() + 20000;  // 1 minute later
+    localStorage.setItem('remindTime', remindTime.toString());
+  }
 
   ngOnInit(): void {
-    // Fetch products and initialize best sellers
+     // Show the popup after 20 seconds, only if the user is not authenticated
+     const user = this.userService.getUser();
+     this.isLoggedIn = user && user.email ? true : false;
+     
+     
     this.products = this.productService.getProducts();
     console.log('Products:', this.products); // Check if all products are valid
     this.bestSellers = [...this.products]  // Make a copy of the products
@@ -54,4 +100,16 @@ export class HomeComponent implements OnInit {
         alert(`${product.productName} is out of stock.`);
       }
     }
+    onButtonClick(product:Product) {
+      if (this.isAuthenticated) {
+        // If authenticated, call the addingCart method
+        this.addToCart(product);
+      } else {
+        // If not authenticated, redirect to login
+        this.router.navigate(['login']);
+      }
+    }
+   
+  
+
 }

@@ -28,6 +28,7 @@ import { AdminHealthTipsComponent } from './admin/admin-health-tips/admin-health
 import { AdminUserDetailsComponent } from './admin/admin-user-details/admin-user-details.component';
 import { AdminManagementComponent } from './admin/admin-management/admin-management.component';
 import { AdminProfileComponent } from './admin/admin-profile/admin-profile.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -36,21 +37,21 @@ const routes: Routes = [
   {path:'signup',component:SignupComponent},
   {path:'login',component:LoginComponent},
   {path:'aboutus',component:AboutusComponent},
-  {path:'bookmark',component:BookmarkComponent},
-  {path:'cart',component:CartComponent},
-  {path:'contactus',component:ContactusComponent},
-  {path:'payment',component:PaymentComponent},
+  {path:'bookmark',component:BookmarkComponent,canActivate: [AuthGuard]},
+  {path:'cart',component:CartComponent,canActivate: [AuthGuard]},
+  {path:'contactus',component:ContactusComponent,canActivate: [AuthGuard]},
+  {path:'payment',component:PaymentComponent,canActivate: [AuthGuard]},
   {path:'privacy',component:PrivacypolicyComponent},
-  {path:'product',component:ProductComponent},
-  {path:'remedies',component:RemediesComponent},
-  {path:'healthtips',component:HelthtipsComponent},
-  {path:'user',component:UserComponent},
-  {path:'address',component:AddressComponent},
-  {path:'skin',component:SkinComponent},
-  {path:'body',component:BodyComponent},
-  {path:'hair',component:HairComponent},
-  {path:'immunity',component:ImmunityComponent},
-  {path:'digestion',component:DigestionComponent},
+  {path:'product',component:ProductComponent,canActivate: [AuthGuard]},
+  {path:'remedies',component:RemediesComponent,canActivate: [AuthGuard]},
+  {path:'healthtips',component:HelthtipsComponent,canActivate: [AuthGuard]},
+  {path:'user',component:UserComponent,canActivate: [AuthGuard]},
+  {path:'address',component:AddressComponent,canActivate: [AuthGuard]},
+  {path:'skin',component:SkinComponent,canActivate: [AuthGuard]},
+  {path:'body',component:BodyComponent,canActivate: [AuthGuard]},
+  {path:'hair',component:HairComponent,canActivate: [AuthGuard]},
+  {path:'immunity',component:ImmunityComponent,canActivate: [AuthGuard]},
+  {path:'digestion',component:DigestionComponent,canActivate: [AuthGuard]},
   { path: '', redirectTo: '/admin-panel', pathMatch: 'full' },
   { path: 'admin-panel', component: AdminPanelComponent },
   { path: 'admin-product', component: AdminProductComponent },

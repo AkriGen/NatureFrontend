@@ -12,14 +12,21 @@ import { UserService } from '../../services/user.service';
 export class UserComponent {
   savedAddresses: any[] = [];
 
-  constructor(private addressService: AddressService,private userServices :UserService) {}
+  constructor(private addressService: AddressService,private userServices :UserService, private router:Router) {}
 
   ngOnInit(): void {
+    const currentUser = this.userServices.getUser();
+    if (!currentUser || !currentUser.email) {
+      this.router.navigate(['/login']);  // Redirect to login page if not authenticated
+    } else {
+      // Load user data if authenticated
+      this.user = currentUser;
+    }
+
     // Subscribe to get the list of saved addresses
     this.addressService.getSavedAddresses().subscribe((addresses) => {
       this.savedAddresses = addresses;
     });
-    this.loadUserData();
   }
   activeTab: number = 0;
 
@@ -45,13 +52,9 @@ export class UserComponent {
 
   updateUser(): void {
     localStorage.setItem('userData', JSON.stringify(this.user));
-    alert('User details updated successfully and saved to local storage!');
+    alert('User details updated successfully!!');
+  
   }
 
-  loadUserData(): void {
-    const storedData = localStorage.getItem('userData');
-    if (storedData) {
-      this.user = JSON.parse(storedData);
-    }
-  }
+  
 }

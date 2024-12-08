@@ -1,3 +1,4 @@
+<div>
 <app-slider></app-slider>
 <div class="heading-container">
         <div class="heading hover-effect">&ldquo; Here is everything you need &rdquo;</div>
@@ -64,7 +65,8 @@
           <h5 class="card-title">{{ product.productName }}</h5>
           <p class="card-text">{{ product.price |currency:'INR'}}</p>
           <div class="row">
-            <div class="col-md-8 col-sm-6 col-md-8 col-lg-6 text-center"><button class="btn btn-danger" (click)="addToCart(product)">Add </button>
+            <div class="col-md-8 col-sm-6 col-md-8 col-lg-6 text-center"><button class="btn btn-danger" (click)="onButtonClick(product)">Add </button>
+
             </div>
             <div class="col-md-4 col-sm-6 col-md-4 col-lg-6"><button class="btn btn-success" (click)="buyNow(product)">Buy </button>
             </div>
@@ -99,7 +101,7 @@
 <div id="slider2" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://st-images.honasa.in/combosweb1_4093aadf42.jpg?format=auto&width=&qualilty=" class="d-block w-100" alt="Offer Image">
+      <img src="https://img.freepik.com/premium-psd/best-daily-skin-care-product-promotion-web-banner-template_536881-41.jpg" class="d-block w-100" alt="Offer Image">
     </div>
   </div>
 </div>
@@ -124,3 +126,10 @@
 <script>
   AOS.init();  // Ensure AOS is initialized
 </script>
+<!-- Show the toaster-style popup if the user is not authenticated or if it's time to remind again -->
+ <div *ngIf="!isLoggedIn">
+  <app-popup *ngIf="!showPopup" (closePopup)="closePopup()" (remindLater)="remindLater()"></app-popup>
+
+ </div>
+
+</div>

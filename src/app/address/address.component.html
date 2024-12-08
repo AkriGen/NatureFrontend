@@ -30,7 +30,7 @@
     <li *ngFor="let addr of savedAddresses">
       <div>
         <strong>{{ addr.street }}</strong>, {{ addr.city }}, {{ addr.country }}
-        <button (click)="editAddress(addr)">Edit</button>
+        <button (click)="editAddress(addr)"><i class="bi bi-pencil-square"></i></button>
         <button (click)="removeAddress(addr)">Remove</button>
       </div>
     </li>

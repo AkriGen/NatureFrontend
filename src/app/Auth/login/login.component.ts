@@ -28,12 +28,13 @@ export class LoginComponent {
       ) {
         this.userService.setUser(storedUser);
         alert('Login successful!');
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/user']);
       } else {
         alert('Invalid email or password!');
       }
     } else {
       alert('No account found. Please sign up first!');
+      this.router.navigate(['/signup']);
     }
   }
 }

@@ -40,7 +40,13 @@ import { AdminProductComponent } from './admin/admin-product/admin-product.compo
 import { AdminProfileComponent } from './admin/admin-profile/admin-profile.component';
 import { AdminRemediesComponent } from './admin/admin-remedies/admin-remedies.component';
 import { AdminUserDetailsComponent } from './admin/admin-user-details/admin-user-details.component';
-
+import { PopupComponent } from './popup/popup.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './auth.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+export function tokenGetter() { 
+  return localStorage.getItem("jwt"); 
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,11 +78,13 @@ import { AdminUserDetailsComponent } from './admin/admin-user-details/admin-user
     AdminProfileComponent,
     AdminRemediesComponent,
     AdminUserDetailsComponent,
-    AddressComponent
+    AddressComponent,
+    PopupComponent
     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     SignupComponent,
     MatButtonModule,
     MatToolbarModule,  
@@ -84,10 +92,18 @@ import { AdminUserDetailsComponent } from './admin/admin-user-details/admin-user
     MatSidenavModule,
     MatListModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5001"],
+        disallowedRoutes: []
+      }
+    })
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    [AuthGuard]
   ],
   bootstrap: [AppComponent]
 })

@@ -96,8 +96,134 @@ body{
   
   }
  
-  @media (max-width: 768px) {
-    .container {
-      padding: 15px;
-    }
+ /* Media Queries for Responsiveness */
+
+@media (max-width: 1024px) {
+  .container {
+    margin-top: 5%;
   }
+
+  .leftbox {
+    width: 12%;
+    height: 100%;
+  }
+
+  .rightbox {
+    width: 70%;
+    margin-left: 20%;
+  }
+
+  nav a {
+    font-size: 1.5em;
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 25px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .input {
+    font-size: 1em;
+    width: 90%;
+  }
+
+  .btn {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 755px) {
+  .container {
+    margin-top: 5%;
+    
+  }
+
+  .leftbox {
+    width: 10%;
+    top: -2%;
+  }
+
+  .rightbox {
+    width: 60%;
+    margin-left: 180px;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  nav a {
+    font-size: 1.2em;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin-top: 25px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .input {
+    font-size: 1em;
+    width: 100%;
+  }
+
+  .btn {
+    font-size: 13px;
+    padding: 8px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin-top: 5%;
+
+  }
+
+  .leftbox {
+    width: 8%;
+  }
+
+  .rightbox {
+    width: 30%;
+    margin-left: 120px;
+  }
+
+  nav a {
+    font-size: 1.2em;
+    padding: 5px;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .input {
+    font-size: 0.9em;
+    width: 100%;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 6px 15px;
+  }
+}
